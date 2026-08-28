@@ -1,0 +1,31 @@
+{{ block styles }}
+<link rel="stylesheet" href="{{ static 'career_option_value/game.css' }}">
+{{ endblock }}
+
+{{ block title }}Is This Just Something Your Economics Professor Made Up?{{ endblock }}
+
+{{ block content }}
+<p>
+The game deliberately simplifies the real labor market. But its Economics-like degree was motivated by exploratory analysis of recent Census labor-market data, supplemented with occupational information from the Bureau of Labor Statistics.
+</p>
+
+<div class="fact-grid">
+{{ for fact in empirical_facts }}
+    <div class="fact-card">
+        <div class="fact-value">{{ fact.value }}</div>
+        <div class="fact-metric">{{ fact.metric }}</div>
+        <div class="fact-detail">{{ fact.detail }}</div>
+    </div>
+{{ endfor }}
+</div>
+
+<div class="info-box">
+Economics was not the highest-paying, broadest, or safest major on every measure. What stood out was the <strong>combination of relatively high earnings and access to many distinct, valuable occupational paths</strong>.
+</div>
+
+<p class="muted-note">
+These statistics summarize the project's current exploratory calibration; they are descriptive/model-based rather than causal estimates. The game intentionally exaggerates and simplifies the mechanism for teaching purposes.
+</p>
+
+{{ next_button }}
+{{ endblock }}

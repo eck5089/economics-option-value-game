@@ -1,0 +1,22 @@
+{{ block styles }}
+<link rel="stylesheet" href="{{ static 'career_option_value/game.css' }}">
+{{ endblock }}
+
+{{ block title }}One Last Question{{ endblock }}
+
+{{ block content }}
+<p>Before the activity, you rated the attractiveness of an Economics major as <strong>{{ pre_rating }}/7</strong>.</p>
+
+<p>Now that you have completed the activity, how attractive does an <strong>Economics major</strong> seem to you personally?</p>
+<div class="likert-labels"><span>1 = Not at all attractive</span><span>7 = Extremely attractive</span></div>
+{{ formfield 'econ_attractiveness' label="" }}
+
+<hr>
+<p><strong>Which consideration mattered most to you while thinking about the major choices?</strong></p>
+{{ formfield 'feature_most_important' label="" }}
+
+<p><strong>Optional:</strong> Anything else you want to say about the activity or your choice?</p>
+{{ formfield 'post_comment' label="" }}
+
+{{ next_button }}
+{{ endblock }}
