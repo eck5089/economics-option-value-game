@@ -78,6 +78,16 @@ The same latent draws are reused for all five major counterfactuals within a rou
 
 `settings.py` currently uses `balanced_states=True`. Within each round, the app assigns states as evenly as possible across participants while randomizing which participant receives each state. Set this to `False` for independent state draws.
 
+## Public room
+
+`settings.py` defines a reusable room named:
+
+```text
+econ_options
+```
+
+For the public website deployment, use `OTREE_AUTH_LEVEL=STUDY`, create a large `career_option_value` session inside that room, and link visitors directly to the room URL rather than the oTree root/demo page. A room session gives each visitor a separate participant record while preserving one stable public link.
+
 ## Main files
 
 - `game_config.py` — canonical degree costs, career values, access matrix, state multipliers, and empirical facts.
@@ -89,19 +99,17 @@ The same latent draws are reused for all five major counterfactuals within a rou
 
 ## Public use and research use
 
-For a permanent public teaching demo, deploy with:
-
-```text
-OTREE_AUTH_LEVEL=DEMO
-```
-
-For controlled classroom/research sessions, use a separate deployment with:
+For the permanent public teaching activity, the recommended setup is:
 
 ```text
 OTREE_AUTH_LEVEL=STUDY
 ```
 
-Keeping public-demo traffic separate from formal study data is strongly recommended.
+with the reusable `econ_options` room and a pre-created session with ample participant slots.
+
+For a separate controlled classroom/research deployment, also use `STUDY`, but create sessions sized to the actual class or research sample rather than using the large public room session.
+
+Keeping public traffic separate from formal study data is strongly recommended.
 
 ## Evidence brief
 
