@@ -1,0 +1,29 @@
+{{ block styles }}
+<link rel="stylesheet" href="{{ static 'career_option_value/game.css' }}">
+{{ endblock }}
+
+{{ block title }}Your Round {{ player.round_number }} Outcome{{ endblock }}
+
+{{ block content }}
+<div class="result-card">
+    <div class="result-line"><span>Major</span><strong>{{ summary.major_icon }} {{ summary.major_label }}</strong></div>
+    <div class="result-line"><span>Labor market</span><strong>{{ summary.state_icon }} {{ summary.state_label }}</strong></div>
+    <div class="result-line"><span>Career chosen</span><strong>{{ summary.career_label }}</strong></div>
+    <hr>
+    <div class="result-line"><span>Career value</span><strong>{{ summary.chosen_career_value }}</strong></div>
+    <div class="result-line"><span>Degree cost</span><strong>−{{ summary.degree_cost }}</strong></div>
+    <div class="result-total"><span>Final payoff</span><strong>{{ summary.net_payoff|to0 }} points</strong></div>
+</div>
+
+{{ if not summary.maximizing }}
+<div class="info-box">
+    You selected an available career that did not have the highest point value in your realized opportunity set. That is allowed; we record both your actual choice and the highest-point option available.
+</div>
+{{ endif }}
+
+{{ if player.round_number == 1 }}
+<p class="muted-note">Round 2 changes one key feature: you will have to choose your major before the future labor market is revealed.</p>
+{{ endif }}
+
+{{ next_button }}
+{{ endblock }}

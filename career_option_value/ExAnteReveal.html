@@ -1,0 +1,44 @@
+{{ block styles }}
+<link rel="stylesheet" href="{{ static 'career_option_value/game.css' }}">
+{{ endblock }}
+
+{{ block title }}One Realization Isn't the Whole Story{{ endblock }}
+
+{{ block content }}
+<p>
+In Round 2 you chose your major <strong>before</strong> knowing which labor market would boom. The relevant question is therefore how each major performs across all possible futures—not which major happened to win after one particular draw.
+</p>
+
+<div class="table-responsive">
+<table class="table exante-table">
+    <thead>
+        <tr><th>Major</th><th>Expected payoff before the future is known</th><th>Chance of no specialized offer</th></tr>
+    </thead>
+    <tbody>
+    {{ for row in rows }}
+        <tr class="{{ if row.is_economics }}economics-row{{ endif }}">
+            <td><strong>{{ row.major_label }}</strong></td>
+            <td>{{ row.expected_net_payoff_display }}</td>
+            <td>{{ row.fallback_percent }}%</td>
+        </tr>
+    {{ endfor }}
+    </tbody>
+</table>
+</div>
+
+<h3 class="section-heading">When the future is known, specialization can pay</h3>
+<div class="winner-grid">
+{{ for winner in winners }}
+    <div class="winner-card">
+        <div class="winner-state">{{ winner.state_label }}</div>
+        <div class="winner-major">→ {{ winner.major_label }}</div>
+    </div>
+{{ endfor }}
+</div>
+
+<p class="muted-note">
+The point of the game is not that Economics wins every possible future. It does not. Its advantage under uncertainty comes from preserving several relatively valuable paths.
+</p>
+
+{{ next_button }}
+{{ endblock }}

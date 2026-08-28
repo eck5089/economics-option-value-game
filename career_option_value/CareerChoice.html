@@ -1,0 +1,48 @@
+{{ block styles }}
+<link rel="stylesheet" href="{{ static 'career_option_value/game.css' }}">
+{{ endblock }}
+
+{{ block title }}Choose Your Career{{ endblock }}
+
+{{ block content }}
+<p>You may choose any opportunity that is available to you. Your degree cost of <strong>{{ player.degree_cost }} points</strong> will be subtracted from the career value.</p>
+
+{{ formfield_errors 'career_choice' }}
+<div class="opportunity-list">
+{{ for row in opportunities }}
+    <label class="opportunity-row choice-row {{ if not row.available }}disabled-choice{{ endif }}">
+        <div class="opportunity-main">
+            {{ if row.available }}
+                <input type="radio" name="career_choice" value="{{ row.code }}">
+            {{ else }}
+                <span class="radio-placeholder"></span>
+            {{ endif }}
+            <span class="career-icon">{{ row.icon }}</span>
+            <div>
+                <strong>{{ row.label }}</strong>
+                <div class="career-points">{{ row.value }} career points → {{ row.net_if_chosen }} net points</div>
+            </div>
+        </div>
+        {{ if row.available }}
+            <div class="offer-status available">✓ Available</div>
+        {{ else }}
+            <div class="offer-status unavailable">✕ Not available</div>
+        {{ endif }}
+    </label>
+{{ endfor }}
+
+<label class="opportunity-row choice-row fallback-row">
+    <div class="opportunity-main">
+        <input type="radio" name="career_choice" value="{{ fallback.code }}">
+        <span class="career-icon">🛟</span>
+        <div>
+            <strong>{{ fallback.label }}</strong>
+            <div class="career-points">{{ fallback.value }} career points → {{ fallback.net_if_chosen }} net points</div>
+        </div>
+    </div>
+    <div class="offer-status available">✓ Guaranteed</div>
+</label>
+</div>
+
+<div class="action-row">{{ next_button }}</div>
+{{ endblock }}

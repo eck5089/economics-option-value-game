@@ -1,0 +1,69 @@
+{{ block styles }}
+<link rel="stylesheet" href="{{ static 'career_option_value/game.css' }}">
+{{ endblock }}
+
+{{ block title }}🔎 Enter the Job Market{{ endblock }}
+
+{{ block content }}
+<div class="compact-context">
+    <span>{{ major.icon }} <strong>{{ major.label }}</strong></span>
+    <span>{{ state.icon }} <strong>{{ state.label }}</strong></span>
+    <span>Degree Cost: <strong>{{ player.degree_cost }}</strong></span>
+</div>
+
+<p class="search-intro">Your labor-market circumstances have already been realized. Let's see which specialized opportunities are open to you.</p>
+
+<div id="search-status" class="search-status">Searching for opportunities...</div>
+
+<div class="opportunity-list animation-list">
+{{ for row in opportunities }}
+    <div class="opportunity-row market-search-row hidden-result">
+        <div class="opportunity-main">
+            <span class="career-icon">{{ row.icon }}</span>
+            <div><strong>{{ row.label }}</strong><div class="career-points">{{ row.value }} career points</div></div>
+        </div>
+        {{ if row.available }}
+            <div class="offer-status available">✓ Opportunity available</div>
+        {{ else }}
+            <div class="offer-status unavailable">✕ No specialized opportunity</div>
+        {{ endif }}
+    </div>
+{{ endfor }}
+    <div class="opportunity-row market-search-row hidden-result fallback-row">
+        <div class="opportunity-main">
+            <span class="career-icon">🛟</span>
+            <div><strong>{{ fallback.label }}</strong><div class="career-points">{{ fallback.value }} career points</div></div>
+        </div>
+        <div class="offer-status available">✓ Always available</div>
+    </div>
+</div>
+
+<div id="job-continue" class="d-none action-row">{{ next_button }}</div>
+{{ endblock }}
+
+{{ block scripts }}
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+    const rows = Array.from(document.querySelectorAll('.market-search-row'));
+    const status = document.getElementById('search-status');
+    const continueWrap = document.getElementById('job-continue');
+    const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const delay = reduced ? 0 : 520;
+    let index = 0;
+
+    function revealNext() {
+        if (index >= rows.length) {
+            status.textContent = 'Your opportunity set is complete.';
+            continueWrap.classList.remove('d-none');
+            return;
+        }
+        rows[index].classList.remove('hidden-result');
+        rows[index].classList.add('revealed-result');
+        index += 1;
+        setTimeout(revealNext, delay);
+    }
+
+    setTimeout(revealNext, reduced ? 0 : 300);
+});
+</script>
+{{ endblock }}

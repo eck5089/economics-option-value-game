@@ -1,0 +1,39 @@
+{{ block styles }}
+<link rel="stylesheet" href="{{ static 'career_option_value/game.css' }}">
+{{ endblock }}
+
+{{ block title }}What Would Have Happened If You Chose Differently?{{ endblock }}
+
+{{ block content }}
+<p>
+For each round, the table below holds the <strong>economy and your five underlying labor-market draws fixed</strong> and changes only your major.
+The counterfactual column reports the best career that would have been available under each major.
+</p>
+
+{{ for rs in rounds }}
+<div class="debrief-round">
+    <h3>Round {{ rs.round_number }} — {{ rs.condition }}</h3>
+    <p>{{ rs.state_icon }} <strong>{{ rs.state_label }}</strong> · You chose {{ rs.major_icon }} <strong>{{ rs.major_label }}</strong> and earned <strong>{{ rs.net_payoff|to0 }} points</strong>.</p>
+    <div class="table-responsive">
+    <table class="table counterfactual-table">
+        <thead><tr><th>Major</th><th>Best available career</th><th>Net payoff</th></tr></thead>
+        <tbody>
+        {{ for cf in rs.counterfactuals }}
+            <tr class="{{ if cf.is_actual_major }}actual-major-row{{ endif }}">
+                <td>{{ cf.major_icon }} {{ cf.major_label }} {{ if cf.is_actual_major }}<span class="you-badge">your major</span>{{ endif }}</td>
+                <td>{{ cf.best_career_label }}</td>
+                <td><strong>{{ cf.net_payoff }}</strong></td>
+            </tr>
+        {{ endfor }}
+        </tbody>
+    </table>
+    </div>
+</div>
+{{ endfor }}
+
+<div class="info-box">
+<strong>Important:</strong> a major that is best after the future has already been revealed was not necessarily the best decision at the time you had to choose under uncertainty.
+</div>
+
+{{ next_button }}
+{{ endblock }}
