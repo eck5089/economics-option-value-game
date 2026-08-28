@@ -1,0 +1,33 @@
+{{ block styles }}
+<link rel="stylesheet" href="{{ static 'career_option_value/game.css' }}">
+{{ endblock }}
+
+{{ block title }}🎓 Choosing a Major{{ endblock }}
+
+{{ block content }}
+<div class="game-lead">
+    <p>Imagine that you are choosing a college major.</p>
+    <p>Your major affects two things:</p>
+    <ol>
+        <li><strong>the cost of completing your degree</strong>, and</li>
+        <li><strong>the career opportunities available to you after graduation.</strong></li>
+    </ol>
+    <p>When you graduate, some parts of the labor market may be stronger than others.</p>
+</div>
+
+<div class="formula-box">
+    <div class="formula-title">Your payoff</div>
+    <div class="formula">Career Points − Degree Cost</div>
+</div>
+
+<div class="info-box">
+    <strong>Safety net:</strong> You will always have access to <strong>General Employment</strong>,
+    worth 50 career points, even if no specialized career opportunity becomes available.
+</div>
+
+<p class="muted-note">
+    The degrees, career markets, and points in this activity are stylized. You will see the real-world motivation after the game.
+</p>
+
+{{ next_button }}
+{{ endblock }}

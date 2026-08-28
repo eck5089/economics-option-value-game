@@ -1,0 +1,47 @@
+{{ block styles }}
+<link rel="stylesheet" href="{{ static 'career_option_value/game.css' }}">
+{{ endblock }}
+
+{{ block title }}🎓 Four Years Later...{{ endblock }}
+
+{{ block content }}
+<div class="reveal-panel">
+    <p>Your degree is complete.</p>
+    <p>The labor market you are graduating into is...</p>
+    <div id="state-spinner" class="state-spinner">Calculating...</div>
+    <div id="final-state" class="final-state d-none">{{ state.icon }} {{ state.label }}</div>
+</div>
+<div id="state-continue" class="d-none action-row">{{ next_button }}</div>
+{{ endblock }}
+
+{{ block scripts }}
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+    const spinner = document.getElementById('state-spinner');
+    const finalState = document.getElementById('final-state');
+    const continueWrap = document.getElementById('state-continue');
+    const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    if (reduced) {
+        spinner.classList.add('d-none');
+        finalState.classList.remove('d-none');
+        continueWrap.classList.remove('d-none');
+        return;
+    }
+
+    let i = 0;
+    const labels = js_vars.all_state_labels;
+    const timer = setInterval(function () {
+        spinner.textContent = labels[i % labels.length];
+        i += 1;
+    }, 160);
+
+    setTimeout(function () {
+        clearInterval(timer);
+        spinner.classList.add('d-none');
+        finalState.classList.remove('d-none');
+        continueWrap.classList.remove('d-none');
+    }, 1500);
+});
+</script>
+{{ endblock }}

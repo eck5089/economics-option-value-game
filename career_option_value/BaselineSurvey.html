@@ -1,0 +1,12 @@
+{{ block styles }}
+<link rel="stylesheet" href="{{ static 'career_option_value/game.css' }}">
+{{ endblock }}
+
+{{ block title }}Before We Begin{{ endblock }}
+
+{{ block content }}
+<p>Before seeing the game, how attractive does an <strong>Economics major</strong> seem to you personally?</p>
+<div class="likert-labels"><span>1 = Not at all attractive</span><span>7 = Extremely attractive</span></div>
+{{ formfield 'econ_attractiveness' label="" }}
+{{ next_button }}
+{{ endblock }}

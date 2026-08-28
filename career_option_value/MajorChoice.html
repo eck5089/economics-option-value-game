@@ -1,0 +1,68 @@
+{{ block styles }}
+<link rel="stylesheet" href="{{ static 'career_option_value/game.css' }}">
+{{ endblock }}
+
+{{ block title }}
+{{ if foresight }}Round 1: You Know the Future{{ else }}Round 2: You Don't Know the Future{{ endif }}
+{{ endblock }}
+
+{{ block content }}
+{{ if foresight }}
+<div class="state-banner">
+    <div class="state-icon">{{ state.icon }}</div>
+    <div>
+        <div class="eyebrow">KNOWN BEFORE YOU CHOOSE</div>
+        <h3>{{ state.label }}</h3>
+        <p>The other four specialized career markets will be relatively weak.</p>
+    </div>
+</div>
+<p>Because the future is known in this round, the cards below show your <strong>actual offer probability</strong> in this economy.</p>
+{{ else }}
+<div class="state-banner uncertain">
+    <div class="state-icon">🎲</div>
+    <div>
+        <div class="eyebrow">CHOOSE BEFORE THE FUTURE IS REVEALED</div>
+        <h3>Any one of the five career markets may boom.</h3>
+        <p>Each market has a 20% chance. You will learn the outcome only after you commit to a major.</p>
+    </div>
+</div>
+<p>The cards show each degree's <strong>general career profile</strong>. They do not reveal which labor market will actually boom.</p>
+{{ endif }}
+
+{{ formfield_errors 'major_choice' }}
+<div class="major-grid selectable-major-grid">
+{{ for major in majors }}
+    <label class="major-card selectable-card" for="major-{{ major.code }}">
+        <input type="radio" name="major_choice" value="{{ major.code }}" id="major-{{ major.code }}" class="major-radio">
+        <div class="major-card-head">
+            <span class="major-icon">{{ major.icon }}</span>
+            <div>
+                <div class="major-name">{{ major.label }}</div>
+                <div class="degree-cost">Degree Cost: <strong>{{ major.cost }}</strong></div>
+            </div>
+        </div>
+        <div class="access-list">
+        {{ for row in major.access_rows }}
+            <div class="access-row">
+                <div class="access-label-line">
+                    <span>{{ row.career_icon }} {{ row.career_label }}</span>
+                    {{ if foresight }}
+                        <strong>{{ row.percent }}%</strong>
+                    {{ else }}
+                        <strong>{{ row.access_label }}</strong>
+                    {{ endif }}
+                </div>
+                <div class="segments">
+                    {{ for x in row.filled_segments }}<span class="segment filled"></span>{{ endfor }}
+                    {{ for x in row.empty_segments }}<span class="segment"></span>{{ endfor }}
+                </div>
+            </div>
+        {{ endfor }}
+        </div>
+        <div class="choose-indicator">Select {{ major.label }}</div>
+    </label>
+{{ endfor }}
+</div>
+
+<div class="action-row">{{ next_button }}</div>
+{{ endblock }}

@@ -1,0 +1,43 @@
+{{ block styles }}
+<link rel="stylesheet" href="{{ static 'career_option_value/game.css' }}">
+{{ endblock }}
+
+{{ block title }}Meet the Five Majors{{ endblock }}
+
+{{ block content }}
+<p>
+Each major has a <strong>Degree Cost</strong> and a different pattern of access to the five specialized career markets.
+These bars describe the degree's general career profile before we know what the future economy will look like.
+</p>
+
+<div class="major-grid">
+{{ for major in majors }}
+    <div class="major-card">
+        <div class="major-card-head">
+            <span class="major-icon">{{ major.icon }}</span>
+            <div>
+                <div class="major-name">{{ major.label }}</div>
+                <div class="degree-cost">Degree Cost: <strong>{{ major.cost }}</strong></div>
+            </div>
+        </div>
+        <div class="access-list">
+        {{ for row in major.access_rows }}
+            <div class="access-row">
+                <div class="access-label-line"><span>{{ row.career_icon }} {{ row.career_label }}</span><strong>{{ row.access_label }}</strong></div>
+                <div class="segments" aria-label="{{ row.access_label }}">
+                    {{ for x in row.filled_segments }}<span class="segment filled"></span>{{ endfor }}
+                    {{ for x in row.empty_segments }}<span class="segment"></span>{{ endfor }}
+                </div>
+            </div>
+        {{ endfor }}
+        </div>
+    </div>
+{{ endfor }}
+</div>
+
+<div class="info-box">
+    <strong>How labor-market conditions work:</strong> when a career market is booming, specialized opportunities in that market become much more likely. Opportunities in the other markets are relatively weak.
+</div>
+
+{{ next_button }}
+{{ endblock }}
