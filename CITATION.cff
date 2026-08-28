@@ -1,0 +1,13 @@
+cff-version: 1.2.0
+message: "If you use this classroom activity, please cite the software and accompanying evidence brief."
+title: "Choosing a Major: Option Value Under Uncertainty"
+type: software
+authors:
+  - family-names: Kochersperger
+    given-names: Eli
+year: 2026
+version: 1.0.0
+license: MIT
+abstract: >-
+  An oTree classroom activity illustrating specialization, uncertainty,
+  occupational breadth, and the option value of a college major.
