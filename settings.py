@@ -16,6 +16,13 @@ SESSION_CONFIG_DEFAULTS = dict(
     doc='Two-round classroom activity on specialization, uncertainty, and career option value.',
 )
 
+ROOMS = [
+    dict(
+        name='econ_options',
+        display_name='Choosing a Major: Option Value Under Uncertainty',
+    ),
+]
+
 PARTICIPANT_FIELDS = []
 SESSION_FIELDS = []
 
